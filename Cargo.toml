@@ -1,7 +1,7 @@
 [package]
 name = "option_vec"
 description = "Vec<Option<T>>-like container"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Murarth <murarth@gmail.com>"]
 
 documentation = "http://murarth.github.io/option_vec/option_vec/index.html"
