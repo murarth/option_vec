@@ -1,0 +1,13 @@
+[package]
+name = "option_vec"
+description = "Vec<Option<T>>-like container"
+version = "0.1.0"
+authors = ["Murarth <murarth@gmail.com>"]
+
+documentation = "http://murarth.github.io/option_vec/option_vec/index.html"
+homepage = "https://github.com/murarth/option_vec"
+repository = "https://github.com/murarth/option_vec"
+
+keywords = ["container", "option", "vec"]
+license = "MIT/Apache-2.0"
+readme = "README.md"
