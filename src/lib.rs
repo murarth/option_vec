@@ -122,7 +122,7 @@ impl<T> OptionVec<T> {
     /// internal positions are not removed, so as to maintain `Some(_)` element
     /// positions.
     pub fn shrink_to_fit(&mut self) {
-        let n = self.last_occupied().unwrap_or(0);
+        let n = self.end_occupied();
 
         self.vec.truncate(n);
         self.vec.shrink_to_fit();
@@ -218,6 +218,10 @@ impl<T> OptionVec<T> {
             }
         }
         None
+    }
+
+    fn end_occupied(&self) -> usize {
+        self.last_occupied().map_or(0, |n| n + 1)
     }
 
     fn last_occupied(&self) -> Option<usize> {
@@ -340,9 +344,19 @@ impl<T: fmt::Debug> fmt::Debug for OptionVec<T> {
 
 impl<T: Clone> Clone for OptionVec<T> {
     fn clone(&self) -> OptionVec<T> {
-        let end = self.last_occupied().map_or(0, |n| n + 1);
+        let end = self.end_occupied();
 
         OptionVec::from(self.vec[..end].to_vec())
+    }
+
+    fn clone_from(&mut self, other: &OptionVec<T>) {
+        let end = other.end_occupied();
+
+        self.vec.truncate(end);
+        let len = self.vec.len();
+
+        self.vec.clone_from_slice(&other.vec[..len]);
+        self.vec.extend_from_slice(&other.vec[len..end]);
     }
 }
 
@@ -512,6 +526,44 @@ mod test {
         v.retain(|n| *n >= 2);
 
         assert_eq!(v.len(), 2);
+    }
+
+    #[test]
+    fn test_clone() {
+        let a = OptionVec::from(vec![
+            Some(1), None, Some(2), None]);
+
+        let b = a.clone();
+
+        let mut c = OptionVec::new();
+        c.clone_from(&a);
+
+        let mut d = OptionVec::from(vec![Some(0); 10]);
+        d.clone_from(&a);
+
+        assert_eq!(a.len(), 2);
+        assert_eq!(b.len(), 2);
+        assert_eq!(c.len(), 2);
+        assert_eq!(d.len(), 2);
+
+        assert_eq!(a.inner().len(), 4);
+        assert_eq!(b.inner().len(), 3);
+        assert_eq!(c.inner().len(), 3);
+        assert_eq!(d.inner().len(), 3);
+    }
+
+    #[test]
+    fn test_shrink_to_fit() {
+        let mut v = OptionVec::from(vec![
+            Some(1), None, Some(2), None, None]);
+
+        assert_eq!(v.len(), 2);
+        assert_eq!(v.inner().len(), 5);
+
+        v.shrink_to_fit();
+
+        assert_eq!(v.len(), 2);
+        assert_eq!(v.inner().len(), 3);
     }
 
     #[test]
