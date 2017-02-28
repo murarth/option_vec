@@ -338,7 +338,10 @@ impl<'a, T: 'a + fmt::Debug> fmt::Debug for Iter<'a, T> {
 
 impl<T: fmt::Debug> fmt::Debug for OptionVec<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        f.debug_list().entries(self.iter()).finish()
+        f.debug_map()
+            .entries(self.vec.iter()
+                .enumerate().filter(|&(_idx, v)| v.is_some()))
+            .finish()
     }
 }
 
