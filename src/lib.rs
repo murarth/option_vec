@@ -640,4 +640,12 @@ mod test {
         let _ = format!("{:?}", v.iter_mut());
         let _ = format!("{:?}", v.into_iter());
     }
+
+    #[test]
+    fn test_eq() {
+        let a = OptionVec::from(vec![Some(1), None, Some(2)]);
+        let b = OptionVec::from(vec![None, Some(1), Some(2), None]);
+
+        assert_eq!(a, b);
+    }
 }
