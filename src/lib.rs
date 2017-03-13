@@ -10,7 +10,7 @@
 
 use std::cmp::Ordering;
 use std::fmt;
-use std::iter::FromIterator;
+use std::iter::{self, FromIterator};
 use std::ops;
 use std::slice;
 use std::vec;
@@ -202,6 +202,30 @@ impl<T> OptionVec<T> {
         IterMut(self.vec.iter_mut())
     }
 
+    /// Returns an iterator over values with indices.
+    ///
+    /// The elements yielded by this iterator will be `(usize, T)`.
+    #[inline]
+    pub fn into_enumerate(self) -> IntoEnumerate<T> {
+        IntoEnumerate(self.vec.into_iter().enumerate())
+    }
+
+    /// Returns an iterator over references with indices.
+    ///
+    /// The elements yielded by this iterator will be `(usize, &T)`.
+    #[inline]
+    pub fn enumerate(&self) -> Enumerate<T> {
+        Enumerate(self.vec.iter().enumerate())
+    }
+
+    /// Returns an iterator over mutable references with indices.
+    ///
+    /// The elements yielded by this iterator will be `(usize, &mut T)`.
+    #[inline]
+    pub fn enumerate_mut(&mut self) -> EnumerateMut<T> {
+        EnumerateMut(self.vec.iter_mut().enumerate())
+    }
+
     fn first_vacant(&self) -> Option<usize> {
         for (i, v) in self.vec.iter().enumerate() {
             if v.is_none() {
@@ -251,14 +275,25 @@ pub struct Iter<'a, T: 'a>(slice::Iter<'a, Option<T>>);
 #[derive(Debug)]
 pub struct IterMut<'a, T: 'a>(slice::IterMut<'a, Option<T>>);
 
+/// An enumerated owned iterator of `OptionVec<T>` elements, yielding `(usize, T)`.
+pub struct IntoEnumerate<T>(iter::Enumerate<vec::IntoIter<Option<T>>>);
+
+/// An enumerated iterator of borrowed `OptionVec<T>` elements, yielding `(usize, &T)`.
+#[derive(Clone)]
+pub struct Enumerate<'a, T: 'a>(iter::Enumerate<slice::Iter<'a, Option<T>>>);
+
+/// An enumerated iterator of mutable `OptionVec<T>` elements, yielding `(usize, &mut T)`.
+#[derive(Debug)]
+pub struct EnumerateMut<'a, T: 'a>(iter::Enumerate<slice::IterMut<'a, Option<T>>>);
+
 macro_rules! option_vec_iter {
-    ( $name:ident , $r:ty , $pat:pat , $v:ident ) => {
+    ( $name:ident , $r:ty , $pat:pat , $v:expr ) => {
         impl<'a, T: 'a> Iterator for $name<'a, T> {
             type Item = $r;
 
             fn next(&mut self) -> Option<$r> {
                 while let Some(v) = self.0.next() {
-                    if let Some($pat) = *v {
+                    if let $pat = v {
                         return Some($v);
                     }
                 }
@@ -275,7 +310,7 @@ macro_rules! option_vec_iter {
         impl<'a, T: 'a> DoubleEndedIterator for $name<'a, T> {
             fn next_back(&mut self) -> Option<$r> {
                 while let Some(v) = self.0.next_back() {
-                    if let Some($pat) = *v {
+                    if let $pat = v {
                         return Some($v);
                     }
                 }
@@ -291,8 +326,8 @@ impl<T> Iterator for IntoIter<T> {
 
     fn next(&mut self) -> Option<T> {
         while let Some(v) = self.0.next() {
-            if v.is_some() {
-                return v;
+            if let Some(v) = v {
+                return Some(v);
             }
         }
 
@@ -308,8 +343,8 @@ impl<T> Iterator for IntoIter<T> {
 impl<T> DoubleEndedIterator for IntoIter<T> {
     fn next_back(&mut self) -> Option<T> {
         while let Some(v) = self.0.next_back() {
-            if v.is_some() {
-                return v;
+            if let Some(v) = v {
+                return Some(v);
             }
         }
 
@@ -317,8 +352,30 @@ impl<T> DoubleEndedIterator for IntoIter<T> {
     }
 }
 
-option_vec_iter!{ Iter, &'a T, ref v, v }
-option_vec_iter!{ IterMut, &'a mut T, ref mut v, v }
+option_vec_iter!{ Iter, &'a T, &Some(ref v), v }
+option_vec_iter!{ IterMut, &'a mut T, &mut Some(ref mut v), v }
+
+impl<T> Iterator for IntoEnumerate<T> {
+    type Item = (usize, T);
+
+    fn next(&mut self) -> Option<(usize, T)> {
+        while let Some((n, v)) = self.0.next() {
+            if let Some(v) = v {
+                return Some((n, v));
+            }
+        }
+
+        None
+    }
+
+    fn size_hint(&self) -> (usize, Option<usize>) {
+        let (_, max) = self.0.size_hint();
+        (0, max)
+    }
+}
+
+option_vec_iter!{ Enumerate, (usize, &'a T), (n, &Some(ref v)), (n, v) }
+option_vec_iter!{ EnumerateMut, (usize, &'a mut T), (n, &mut Some(ref mut v)), (n, v) }
 
 impl<T: fmt::Debug> fmt::Debug for IntoIter<T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
@@ -616,6 +673,19 @@ mod test {
     }
 
     #[test]
+    fn test_iter_rev() {
+        let v = OptionVec::from(vec![
+            None, Some(1), Some(2), None, Some(3), None]);
+
+        let mut iter = v.iter().rev();
+
+        assert_eq!(iter.next(), Some(&3));
+        assert_eq!(iter.next(), Some(&2));
+        assert_eq!(iter.next(), Some(&1));
+        assert_eq!(iter.next(), None);
+    }
+
+    #[test]
     fn test_iter_mut() {
         let mut v = OptionVec::from(vec![
             None, Some(1), Some(2), None, Some(3), None]);
@@ -629,6 +699,62 @@ mod test {
         assert_eq!(iter.next(), Some(&2));
         assert_eq!(iter.next(), Some(&4));
         assert_eq!(iter.next(), Some(&6));
+        assert_eq!(iter.next(), None);
+    }
+
+    #[test]
+    fn test_into_enumerate() {
+        let v = OptionVec::from(vec![
+            None, Some(1), Some(2), None, Some(3), None]);
+
+        let mut iter = v.into_enumerate();
+
+        assert_eq!(iter.next(), Some((1, 1)));
+        assert_eq!(iter.next(), Some((2, 2)));
+        assert_eq!(iter.next(), Some((4, 3)));
+        assert_eq!(iter.next(), None);
+    }
+
+    #[test]
+    fn test_enumerate() {
+        let v = OptionVec::from(vec![
+            None, Some(1), Some(2), None, Some(3), None]);
+
+        let mut iter = v.enumerate();
+
+        assert_eq!(iter.next(), Some((1, &1)));
+        assert_eq!(iter.next(), Some((2, &2)));
+        assert_eq!(iter.next(), Some((4, &3)));
+        assert_eq!(iter.next(), None);
+    }
+
+    #[test]
+    fn test_enumerate_rev() {
+        let v = OptionVec::from(vec![
+            None, Some(1), Some(2), None, Some(3), None]);
+
+        let mut iter = v.enumerate().rev();
+
+        assert_eq!(iter.next(), Some((4, &3)));
+        assert_eq!(iter.next(), Some((2, &2)));
+        assert_eq!(iter.next(), Some((1, &1)));
+        assert_eq!(iter.next(), None);
+    }
+
+    #[test]
+    fn test_enumerate_mut() {
+        let mut v = OptionVec::from(vec![
+            None, Some(1), Some(2), None, Some(3), None]);
+
+        for (n, v) in v.enumerate_mut() {
+            *v += n;
+        }
+
+        let mut iter = v.into_enumerate();
+
+        assert_eq!(iter.next(), Some((1, 2)));
+        assert_eq!(iter.next(), Some((2, 4)));
+        assert_eq!(iter.next(), Some((4, 7)));
         assert_eq!(iter.next(), None);
     }
 
