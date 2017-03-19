@@ -276,10 +276,11 @@ pub struct Iter<'a, T: 'a>(slice::Iter<'a, Option<T>>);
 pub struct IterMut<'a, T: 'a>(slice::IterMut<'a, Option<T>>);
 
 /// An enumerated owned iterator of `OptionVec<T>` elements, yielding `(usize, T)`.
+#[derive(Debug)]
 pub struct IntoEnumerate<T>(iter::Enumerate<vec::IntoIter<Option<T>>>);
 
 /// An enumerated iterator of borrowed `OptionVec<T>` elements, yielding `(usize, &T)`.
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct Enumerate<'a, T: 'a>(iter::Enumerate<slice::Iter<'a, Option<T>>>);
 
 /// An enumerated iterator of mutable `OptionVec<T>` elements, yielding `(usize, &mut T)`.
@@ -764,7 +765,10 @@ mod test {
         let _ = format!("{:?}", v);
         let _ = format!("{:?}", v.iter());
         let _ = format!("{:?}", v.iter_mut());
-        let _ = format!("{:?}", v.into_iter());
+        let _ = format!("{:?}", v.clone().into_iter());
+        let _ = format!("{:?}", v.enumerate());
+        let _ = format!("{:?}", v.enumerate_mut());
+        let _ = format!("{:?}", v.clone().into_enumerate());
     }
 
     #[test]
