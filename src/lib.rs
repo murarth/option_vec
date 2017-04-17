@@ -268,7 +268,6 @@ impl<T> OptionVec<T> {
 pub struct IntoIter<T>(vec::IntoIter<Option<T>>);
 
 /// An iterator of borrowed `OptionVec<T>` elements.
-#[derive(Clone)]
 pub struct Iter<'a, T: 'a>(slice::Iter<'a, Option<T>>);
 
 /// An iterator of mutable `OptionVec<T>` elements.
@@ -280,7 +279,7 @@ pub struct IterMut<'a, T: 'a>(slice::IterMut<'a, Option<T>>);
 pub struct IntoEnumerate<T>(iter::Enumerate<vec::IntoIter<Option<T>>>);
 
 /// An enumerated iterator of borrowed `OptionVec<T>` elements, yielding `(usize, &T)`.
-#[derive(Clone, Debug)]
+#[derive(Debug)]
 pub struct Enumerate<'a, T: 'a>(iter::Enumerate<slice::Iter<'a, Option<T>>>);
 
 /// An enumerated iterator of mutable `OptionVec<T>` elements, yielding `(usize, &mut T)`.
@@ -386,6 +385,12 @@ impl<T: fmt::Debug> fmt::Debug for IntoIter<T> {
     }
 }
 
+impl<'a, T: 'a> Clone for Iter<'a, T> {
+    fn clone(&self) -> Iter<'a, T> {
+        Iter(self.0.clone())
+    }
+}
+
 impl<'a, T: 'a + fmt::Debug> fmt::Debug for Iter<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.debug_tuple("IntoIter")
@@ -400,6 +405,12 @@ impl<T: fmt::Debug> fmt::Debug for OptionVec<T> {
             .entries(self.vec.iter()
                 .enumerate().filter(|&(_idx, v)| v.is_some()))
             .finish()
+    }
+}
+
+impl<'a, T: 'a> Clone for Enumerate<'a, T> {
+    fn clone(&self) -> Enumerate<'a, T> {
+        Enumerate(self.0.clone())
     }
 }
 
@@ -777,5 +788,15 @@ mod test {
         let b = OptionVec::from(vec![None, Some(1), Some(2), None]);
 
         assert_eq!(a, b);
+    }
+
+    #[test]
+    fn test_clone_iter() {
+        struct NoClone;
+
+        let m = OptionVec::from(vec![Some(NoClone)]);
+
+        let _ = m.iter().clone();
+        let _ = m.enumerate().clone();
     }
 }
