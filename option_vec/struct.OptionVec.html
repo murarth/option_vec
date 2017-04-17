@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `OptionVec` struct in crate `option_vec`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, OptionVec">
+
+    <title>option_vec::OptionVec - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>option_vec</a></p><script>window.sidebarCurrent = {name: 'OptionVec', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>option_vec</a>::<wbr><a class='struct' href=''>OptionVec</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/option_vec/lib.rs.html#25-27' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct OptionVec&lt;T&gt; { /* fields omitted */ }</pre><div class='docblock'><p>An abstraction over <code>Vec&lt;Option&lt;T&gt;&gt;</code></p>
+
+<p>An element in an <code>OptionVec&lt;T&gt;</code> can be accessed by index and maintains
+its position when elements are removed from the container.</p>
+
+<p>An element inserted into an <code>OptionVec&lt;T&gt;</code> will occupy the first available
+position in the container.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#29-265' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Creates an empty <code>OptionVec&lt;T&gt;</code>.</p>
+</div><h4 id='method.with_capacity' class='method'><span id='with_capacity.v' class='invisible'><code>fn <a href='#method.with_capacity' class='fnname'>with_capacity</a>(n: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Creates an empty <code>OptionVec&lt;T&gt;</code> with capacity for <code>n</code> elements.</p>
+</div><h4 id='method.inner' class='method'><span id='inner.v' class='invisible'><code>fn <a href='#method.inner' class='fnname'>inner</a>(&amp;self) -&gt; &amp;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;T&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Returns a borrowed reference to the internal <code>Vec&lt;Option&lt;T&gt;&gt;</code>.</p>
+</div><h4 id='method.inner_mut' class='method'><span id='inner_mut.v' class='invisible'><code>fn <a href='#method.inner_mut' class='fnname'>inner_mut</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;T&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Returns a mutable reference to the internal <code>Vec&lt;Option&lt;T&gt;&gt;</code>.</p>
+
+<p>Modification of this internal container is safe, but using methods
+such as <code>Vec::insert</code> or <code>Vec::remove</code> will invalidate existing indices.</p>
+</div><h4 id='method.capacity' class='method'><span id='capacity.v' class='invisible'><code>fn <a href='#method.capacity' class='fnname'>capacity</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<div class='docblock'><p>Returns the allocated capacity for elements.</p>
+</div><h4 id='method.len' class='method'><span id='len.v' class='invisible'><code>fn <a href='#method.len' class='fnname'>len</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<div class='docblock'><p>Returns the number of contained elements.</p>
+
+<p>This operation is <code>O(N)</code>, as all non-<code>None</code> elements must be individually
+counted.</p>
+</div><h4 id='method.is_empty' class='method'><span id='is_empty.v' class='invisible'><code>fn <a href='#method.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns whether the container is empty.</p>
+
+<p>This operation is <code>O(N)</code> worst-case, as any elements must be searched
+for a non-<code>None</code> element.</p>
+</div><h4 id='method.insert' class='method'><span id='insert.v' class='invisible'><code>fn <a href='#method.insert' class='fnname'>insert</a>(&amp;mut self, t: T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h4>
+<div class='docblock'><p>Inserts an element into the first available position, returning the
+destination position.</p>
+</div><h4 id='method.remove' class='method'><span id='remove.v' class='invisible'><code>fn <a href='#method.remove' class='fnname'>remove</a>(&amp;mut self, idx: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Removes an element from the given position, if one exists.</p>
+</div><h4 id='method.reserve' class='method'><span id='reserve.v' class='invisible'><code>fn <a href='#method.reserve' class='fnname'>reserve</a>(&amp;mut self, n: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></span></h4>
+<div class='docblock'><p>Reserves capacity for at least <code>n</code> more elements.</p>
+</div><h4 id='method.reserve_exact' class='method'><span id='reserve_exact.v' class='invisible'><code>fn <a href='#method.reserve_exact' class='fnname'>reserve_exact</a>(&amp;mut self, n: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></span></h4>
+<div class='docblock'><p>Reserves capacity for exactly <code>n</code> more elements.</p>
+</div><h4 id='method.shrink_to_fit' class='method'><span id='shrink_to_fit.v' class='invisible'><code>fn <a href='#method.shrink_to_fit' class='fnname'>shrink_to_fit</a>(&amp;mut self)</code></span></h4>
+<div class='docblock'><p>Shrinks the allocation as much as possible.</p>
+
+<p>Any trailing <code>None</code> elements will be truncated. <code>None</code> elements in
+internal positions are not removed, so as to maintain <code>Some(_)</code> element
+positions.</p>
+</div><h4 id='method.retain' class='method'><span id='retain.v' class='invisible'><code>fn <a href='#method.retain' class='fnname'>retain</a>&lt;F&gt;(&amp;mut self, f: F) <span class='where fmt-newline'>where F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;mut T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></span></code></span></h4>
+<div class='docblock'><p>Retains only elements specified by the predicate.</p>
+
+<p>All elements <code>e</code> such that <code>f(&amp;mut e)</code> returns <code>false</code> will be assigned
+to <code>None</code>.</p>
+</div><h4 id='method.pop_back' class='method'><span id='pop_back.v' class='invisible'><code>fn <a href='#method.pop_back' class='fnname'>pop_back</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Removes and returns the last occupied element.</p>
+</div><h4 id='method.pop_front' class='method'><span id='pop_front.v' class='invisible'><code>fn <a href='#method.pop_front' class='fnname'>pop_front</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Removes and returns the first occupied element.</p>
+</div><h4 id='method.clear' class='method'><span id='clear.v' class='invisible'><code>fn <a href='#method.clear' class='fnname'>clear</a>(&amp;mut self)</code></span></h4>
+<div class='docblock'><p>Removes all contained elements.</p>
+</div><h4 id='method.contains' class='method'><span id='contains.v' class='invisible'><code>fn <a href='#method.contains' class='fnname'>contains</a>(&amp;self, idx: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns whether an element exists at the given index.</p>
+</div><h4 id='method.get' class='method'><span id='get.v' class='invisible'><code>fn <a href='#method.get' class='fnname'>get</a>(&amp;self, idx: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;T&gt;</code></span></h4>
+<div class='docblock'><p>Returns an element at the given position.</p>
+</div><h4 id='method.get_mut' class='method'><span id='get_mut.v' class='invisible'><code>fn <a href='#method.get_mut' class='fnname'>get_mut</a>(&amp;mut self, idx: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut T&gt;</code></span></h4>
+<div class='docblock'><p>Returns a mutable reference to an element at the given position.</p>
+</div><h4 id='method.iter' class='method'><span id='iter.v' class='invisible'><code>fn <a href='#method.iter' class='fnname'>iter</a>(&amp;self) -&gt; <a class='struct' href='../option_vec/struct.Iter.html' title='option_vec::Iter'>Iter</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Returns an iterator over contained elements.</p>
+</div><h4 id='method.iter_mut' class='method'><span id='iter_mut.v' class='invisible'><code>fn <a href='#method.iter_mut' class='fnname'>iter_mut</a>(&amp;mut self) -&gt; <a class='struct' href='../option_vec/struct.IterMut.html' title='option_vec::IterMut'>IterMut</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Returns an iterator over mutable references to contained elements.</p>
+</div><h4 id='method.into_enumerate' class='method'><span id='into_enumerate.v' class='invisible'><code>fn <a href='#method.into_enumerate' class='fnname'>into_enumerate</a>(self) -&gt; <a class='struct' href='../option_vec/struct.IntoEnumerate.html' title='option_vec::IntoEnumerate'>IntoEnumerate</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Returns an iterator over values with indices.</p>
+
+<p>The elements yielded by this iterator will be <code>(usize, T)</code>.</p>
+</div><h4 id='method.enumerate' class='method'><span id='enumerate.v' class='invisible'><code>fn <a href='#method.enumerate' class='fnname'>enumerate</a>(&amp;self) -&gt; <a class='struct' href='../option_vec/struct.Enumerate.html' title='option_vec::Enumerate'>Enumerate</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Returns an iterator over references with indices.</p>
+
+<p>The elements yielded by this iterator will be <code>(usize, &amp;T)</code>.</p>
+</div><h4 id='method.enumerate_mut' class='method'><span id='enumerate_mut.v' class='invisible'><code>fn <a href='#method.enumerate_mut' class='fnname'>enumerate_mut</a>(&amp;mut self) -&gt; <a class='struct' href='../option_vec/struct.EnumerateMut.html' title='option_vec::EnumerateMut'>EnumerateMut</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Returns an iterator over mutable references with indices.</p>
+
+<p>The elements yielded by this iterator will be <code>(usize, &amp;mut T)</code>.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#402-409' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#417-433' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, other: &amp;<a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;)</code></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#435-439' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class='method'><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;T&gt;&gt;&gt; for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#441-445' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from' class='method'><span id='from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(v: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;T&gt;&gt;) -&gt; <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Performs the conversion.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;T&gt;&gt;&gt; for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#447-451' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.into' class='method'><span id='into.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into' class='fnname'>into</a>(self) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;T&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Performs the conversion.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.Extend.html' title='core::iter::traits::Extend'>Extend</a>&lt;T&gt; for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#453-464' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.extend' class='method'><span id='extend.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.Extend.html#tymethod.extend' class='fnname'>extend</a>&lt;I&gt;(&amp;mut self, iter: I) <span class='where fmt-newline'>where I: <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html' title='core::iter::traits::IntoIterator'>IntoIterator</a>&lt;Item=T&gt;</span></code></span></h4>
+<div class='docblock'><p>Extends a collection with the contents of an iterator. <a href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.Extend.html#tymethod.extend">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.FromIterator.html' title='core::iter::traits::FromIterator'>FromIterator</a>&lt;T&gt; for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#466-470' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from_iter' class='method'><span id='from_iter.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.FromIterator.html#tymethod.from_iter' class='fnname'>from_iter</a>&lt;I&gt;(iter: I) -&gt; <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt; <span class='where fmt-newline'>where I: <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html' title='core::iter::traits::IntoIterator'>IntoIterator</a>&lt;Item=T&gt;</span></code></span></h4>
+<div class='docblock'><p>Creates a value from an iterator. <a href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.FromIterator.html#tymethod.from_iter">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'b, A, B&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a>&lt;<a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;B&gt;&gt; for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;A&gt; <span class='where fmt-newline'>where A: <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#474-479' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq' class='method'><span id='eq.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, rhs: &amp;<a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;B&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne' class='method'><span id='ne.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, rhs: &amp;<a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;B&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'b, A, B&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;B&gt;&gt; for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;A&gt; <span class='where fmt-newline'>where A: <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#474-479' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq-1' class='method'><span id='eq.v-1' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, rhs: &amp;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;B&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne-1' class='method'><span id='ne.v-1' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, rhs: &amp;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;B&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'b, A, B&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'b [</a>B<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt; for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;A&gt; <span class='where fmt-newline'>where A: <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a>&lt;B&gt;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#474-479' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq-2' class='method'><span id='eq.v-2' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, rhs: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'b [</a>B<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne-2' class='method'><span id='ne.v-2' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, rhs: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'b [</a>B<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt; <span class='where fmt-newline'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#487' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html' title='core::cmp::PartialOrd'>PartialOrd</a> for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt; <span class='where fmt-newline'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html' title='core::cmp::PartialOrd'>PartialOrd</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#489-503' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.partial_cmp' class='method'><span id='partial_cmp.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#tymethod.partial_cmp' class='fnname'>partial_cmp</a>(&amp;self, rhs: &amp;<a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a>&gt;</code></span></h4>
+<div class='docblock'><p>This method returns an ordering between <code>self</code> and <code>other</code> values if one exists. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#tymethod.partial_cmp">Read more</a></p>
+</div><h4 id='method.lt' class='method'><span id='lt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.lt' class='fnname'>lt</a>(&amp;self, rhs: &amp;<a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests less than (for <code>self</code> and <code>other</code>) and is used by the <code>&lt;</code> operator. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.lt">Read more</a></p>
+</div><h4 id='method.le' class='method'><span id='le.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.le' class='fnname'>le</a>(&amp;self, rhs: &amp;<a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests less than or equal to (for <code>self</code> and <code>other</code>) and is used by the <code>&lt;=</code> operator. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.le">Read more</a></p>
+</div><h4 id='method.gt' class='method'><span id='gt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.gt' class='fnname'>gt</a>(&amp;self, rhs: &amp;<a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests greater than (for <code>self</code> and <code>other</code>) and is used by the <code>&gt;</code> operator. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.gt">Read more</a></p>
+</div><h4 id='method.ge' class='method'><span id='ge.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.ge' class='fnname'>ge</a>(&amp;self, rhs: &amp;<a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests greater than or equal to (for <code>self</code> and <code>other</code>) and is used by the <code>&gt;=</code> operator. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialOrd.html#method.ge">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html' title='core::cmp::Ord'>Ord</a> for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt; <span class='where fmt-newline'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html' title='core::cmp::Ord'>Ord</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#505-510' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.cmp' class='method'><span id='cmp.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html#tymethod.cmp' class='fnname'>cmp</a>(&amp;self, rhs: &amp;<a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/cmp/enum.Ordering.html' title='core::cmp::Ordering'>Ordering</a></code></span></h4>
+<div class='docblock'><p>This method returns an <code>Ordering</code> between <code>self</code> and <code>other</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.Ord.html#tymethod.cmp">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Index.html' title='core::ops::Index'>Index</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt; for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#512-519' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Output' class='type'><span id='Output.t' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Index.html#associatedtype.Output' class='type'>Output</a> = T</code></span></h4>
+<div class='docblock'><p>The returned type after indexing</p>
+</div><h4 id='method.index' class='method'><span id='index.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Index.html#tymethod.index' class='fnname'>index</a>(&amp;self, idx: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; &amp;T</code></span></h4>
+<div class='docblock'><p>The method for the indexing (<code>container[index]</code>) operation</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.IndexMut.html' title='core::ops::IndexMut'>IndexMut</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt; for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#521-526' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.index_mut' class='method'><span id='index_mut.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.IndexMut.html#tymethod.index_mut' class='fnname'>index_mut</a>(&amp;mut self, idx: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; &amp;mut T</code></span></h4>
+<div class='docblock'><p>The method for the mutable indexing (<code>container[index]</code>) operation</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html' title='core::iter::traits::IntoIterator'>IntoIterator</a> for <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#528-536' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Item' class='type'><span id='Item.t' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item' class='type'>Item</a> = T</code></span></h4>
+<div class='docblock'><p>The type of the elements being iterated over.</p>
+</div><h4 id='associatedtype.IntoIter' class='type'><span id='IntoIter.t' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.IntoIter' class='type'>IntoIter</a> = <a class='struct' href='../option_vec/struct.IntoIter.html' title='option_vec::IntoIter'>IntoIter</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Which kind of iterator are we turning this into?</p>
+</div><h4 id='method.into_iter' class='method'><span id='into_iter.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#tymethod.into_iter' class='fnname'>into_iter</a>(self) -&gt; <a class='struct' href='../option_vec/struct.IntoIter.html' title='option_vec::IntoIter'>IntoIter</a>&lt;T&gt;</code></span></h4>
+<div class='docblock'><p>Creates an iterator from a value. <a href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#tymethod.into_iter">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a, T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html' title='core::iter::traits::IntoIterator'>IntoIterator</a> for &amp;'a <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#538-546' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Item-1' class='type'><span id='Item.t-1' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item' class='type'>Item</a> = &amp;'a T</code></span></h4>
+<div class='docblock'><p>The type of the elements being iterated over.</p>
+</div><h4 id='associatedtype.IntoIter-1' class='type'><span id='IntoIter.t-1' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.IntoIter' class='type'>IntoIter</a> = <a class='struct' href='../option_vec/struct.Iter.html' title='option_vec::Iter'>Iter</a>&lt;'a, T&gt;</code></span></h4>
+<div class='docblock'><p>Which kind of iterator are we turning this into?</p>
+</div><h4 id='method.into_iter-1' class='method'><span id='into_iter.v-1' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#tymethod.into_iter' class='fnname'>into_iter</a>(self) -&gt; <a class='struct' href='../option_vec/struct.Iter.html' title='option_vec::Iter'>Iter</a>&lt;'a, T&gt;</code></span></h4>
+<div class='docblock'><p>Creates an iterator from a value. <a href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#tymethod.into_iter">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a, T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html' title='core::iter::traits::IntoIterator'>IntoIterator</a> for &amp;'a mut <a class='struct' href='../option_vec/struct.OptionVec.html' title='option_vec::OptionVec'>OptionVec</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/option_vec/lib.rs.html#548-556' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Item-2' class='type'><span id='Item.t-2' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.Item' class='type'>Item</a> = &amp;'a mut T</code></span></h4>
+<div class='docblock'><p>The type of the elements being iterated over.</p>
+</div><h4 id='associatedtype.IntoIter-2' class='type'><span id='IntoIter.t-2' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#associatedtype.IntoIter' class='type'>IntoIter</a> = <a class='struct' href='../option_vec/struct.IterMut.html' title='option_vec::IterMut'>IterMut</a>&lt;'a, T&gt;</code></span></h4>
+<div class='docblock'><p>Which kind of iterator are we turning this into?</p>
+</div><h4 id='method.into_iter-2' class='method'><span id='into_iter.v-2' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#tymethod.into_iter' class='fnname'>into_iter</a>(self) -&gt; <a class='struct' href='../option_vec/struct.IterMut.html' title='option_vec::IterMut'>IterMut</a>&lt;'a, T&gt;</code></span></h4>
+<div class='docblock'><p>Creates an iterator from a value. <a href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.IntoIterator.html#tymethod.into_iter">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "option_vec";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
