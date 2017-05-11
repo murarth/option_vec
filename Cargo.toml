@@ -4,7 +4,7 @@ description = "Vec<Option<T>>-like container"
 version = "0.1.3"
 authors = ["Murarth <murarth@gmail.com>"]
 
-documentation = "http://murarth.github.io/option_vec/option_vec/index.html"
+documentation = "https://docs.rs/option_vec/"
 homepage = "https://github.com/murarth/option_vec"
 repository = "https://github.com/murarth/option_vec"
 
