@@ -3,7 +3,7 @@
 An abstraction over `Vec<Option<T>>`, allowing insertion and removal of elements
 while maintaining an element's position in the container.
 
-[Documentation](http://murarth.github.io/option_vec/option_vec/index.html)
+[Documentation](http://docs.rs/option_vec/)
 
 ## Usage
 
